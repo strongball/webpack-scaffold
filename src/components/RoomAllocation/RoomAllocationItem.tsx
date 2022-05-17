@@ -20,14 +20,16 @@ const RoomAllocationItem: React.FC<Props> = (props) => {
       <div className="RoomAllocationItem-title">{`房間: ${roomTotal}人`}</div>
       <div className="RoomAllocationItem-picker">
         <div className="RoomAllocationItem-picker-label">
-          大人<br />
+          大人
+          <br />
           <small>年齡20+</small>
-          </div>
+        </div>
         <CustomInputNumber
           min={1}
           max={maxAddAble + value.adult}
           value={value.adult}
           onChange={(e) =>
+            e.target.value !== "" &&
             onChange &&
             onChange({
               ...value,
@@ -43,6 +45,7 @@ const RoomAllocationItem: React.FC<Props> = (props) => {
           max={maxAddAble + value.child}
           value={value.child}
           onChange={(e) =>
+            e.target.value !== "" &&
             onChange &&
             onChange({
               ...value,

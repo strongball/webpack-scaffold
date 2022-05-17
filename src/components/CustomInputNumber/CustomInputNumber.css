@@ -22,8 +22,9 @@
 .Number-input.disabled {
     border-color: #dddddd;
 }
-.Number-input:focus {
+.Number-input:focus, .Number-input.focus  {
     outline: none;
+    border-width: 2px;
     border-color: #42A5F5;
 }
 

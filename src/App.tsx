@@ -4,7 +4,7 @@ import RoomAllocation from "./components/RoomAllocation";
 import { RoomAllocationRoomValues } from "./components/RoomAllocation/type";
 const App: React.FC<{}> = () => {
   const [value, setValue] = useState<RoomAllocationRoomValues[]>([]);
-  const [number, setNumber] = useState<number>(0);
+  const [number, setNumber] = useState<number>(1);
 
   return (
     <div style={{ display: "flex" }}>
@@ -12,16 +12,16 @@ const App: React.FC<{}> = () => {
         {number}
         <CustomInputNumber
           name="test"
-          min={-5}
+          min={1}
           max={5}
           step={2}
           value={number}
           // disabled
           onChange={(e) => {
-            setNumber(Number(e.target.value));
+            e.target.value && setNumber(Number(e.target.value));
           }}
           onBlur={(e) => {
-            alert(`blue: ${e.target.name}`);
+            console.log(`blur: ${e.target.name}`);
           }}
         />
       </div>

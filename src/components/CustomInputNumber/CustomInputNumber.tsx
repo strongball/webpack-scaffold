@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import React, { useImperativeHandle, useRef } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
+import { useClickOutside } from "../../hooks/clickOutside";
 import "./CustomInputNumber.css";
 
 interface Props {
@@ -29,14 +30,23 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
     const { value } = props;
     const innerRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => innerRef.current!);
+    const innerValue = value ?? Number(innerRef.current?.value);
 
-    const triggerChange = (direct: 1 | -1) => {
+    /**
+     * change event
+     */
+    const stepChange = (direct: 1 | -1) => {
       if (innerRef.current && !disabled) {
         // innerRef.current.focus();
         const oldValue = Number.isNaN(Number(innerRef.current.value))
           ? 0
           : Number(innerRef.current.value);
         const newValue = Math.min(Math.max(min, oldValue + direct * step), max);
+        triggerChange(newValue);
+      }
+    };
+    const triggerChange = (newValue: number) => {
+      if (innerRef.current && !disabled) {
         innerRef.current.value = String(newValue);
         onChange &&
           onChange({
@@ -45,21 +55,33 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
         triggerBlur();
       }
     };
+
+    /**
+     * focus / blur
+     */
+    const [focus, setFocus] = useState(false);
     const triggerBlur = () => {
-      onBlur &&
-        onBlur({
-          target: innerRef.current,
-        } as any);
+      if (focus) {
+        setFocus(false);
+        onBlur &&
+          onBlur({
+            target: innerRef.current,
+          } as any);
+      }
     };
-    const innerValue = value ?? Number(innerRef.current?.value);
+    const focusDiv = () => {
+      setFocus(true);
+    };
+    const focusRef = useClickOutside(triggerBlur);
+
     return (
-      <div className="Number-root">
+      <div ref={focusRef} className="Number-root" onClick={focusDiv}>
         <div
           className={clsx("Number-item Number-btn", {
             disabled: disabled || innerValue <= min,
           })}
           tabIndex={1}
-          onClick={() => triggerChange(-1)}
+          onClick={() => stepChange(-1)}
         >
           -
         </div>
@@ -68,9 +90,9 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
             ref={innerRef}
             value={value?.toString()}
             onChange={onChange}
-            onBlur={onBlur}
             disabled={disabled}
             className={clsx("Number-item Number-input", {
+              focus: focus,
               disabled: disabled,
             })}
             type="number"
@@ -85,7 +107,7 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
             disabled: disabled || innerValue >= max,
           })}
           tabIndex={2}
-          onClick={() => triggerChange(1)}
+          onClick={() => stepChange(1)}
         >
           +
         </div>

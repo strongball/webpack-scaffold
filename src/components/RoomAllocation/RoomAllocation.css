@@ -1,0 +1,14 @@
+.RoomAllocation-root {
+    padding: 8px;
+    border: 1px solid #42a5f5;
+    border-radius: 4px;
+}
+.RoomAllocation-note {
+    width: 100%;
+    background-color: #f1fdff;
+    border: 1px solid #bbdefb;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 16px 0;
+    font-size: 14px;
+}

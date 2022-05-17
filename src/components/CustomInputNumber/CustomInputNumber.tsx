@@ -36,25 +36,26 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
         const oldValue = Number.isNaN(Number(innerRef.current.value))
           ? 0
           : Number(innerRef.current.value);
-        const newValue = Math.min(Math.max(min, oldValue + direct * step), max)
+        const newValue = Math.min(Math.max(min, oldValue + direct * step), max);
         innerRef.current.value = String(newValue);
         onChange &&
           onChange({
             target: innerRef.current,
           } as any);
+        triggerBlur();
       }
     };
     const triggerBlur = () => {
-      onChange &&
-        onChange({
+      onBlur &&
+        onBlur({
           target: innerRef.current,
         } as any);
     };
-    const innerValue = value || Number(innerRef.current?.value);
+    const innerValue = value ?? Number(innerRef.current?.value);
     return (
-      <div className="number-root">
+      <div className="Number-root">
         <div
-          className={clsx("number-item number-btn", {
+          className={clsx("Number-item Number-btn", {
             disabled: disabled || innerValue <= min,
           })}
           tabIndex={1}
@@ -69,7 +70,7 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
             onChange={onChange}
             onBlur={onBlur}
             disabled={disabled}
-            className={clsx("number-item number-input", {
+            className={clsx("Number-item Number-input", {
               disabled: disabled,
             })}
             type="number"
@@ -80,7 +81,7 @@ const CustomInputNumber = React.forwardRef<HTMLInputElement, Props>(
           />
         </div>
         <div
-          className={clsx("number-item number-btn", {
+          className={clsx("Number-item Number-btn", {
             disabled: disabled || innerValue >= max,
           })}
           tabIndex={2}

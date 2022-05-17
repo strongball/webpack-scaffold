@@ -1,13 +1,8 @@
-.number-root * {
-    box-sizing: border-box;
-}
-.number-root {
-    position: absolute;
+.Number-root {
     display: flex;
-    pointer-events: visible;
 }
 
-.number-item {
+.Number-item {
     height: 48px;
     width: 48px;
     padding: 0;
@@ -17,28 +12,29 @@
     text-align: center;
     line-height: 48px;
 }
-.number-input {
+.Number-input {
     font-size: 16px;
-    border-color: #666666;
+    border-color: #aaaaaa;
     margin: 0;
     -webkit-appearance: none;
     -moz-appearance: textfield;
 }
-.number-input.disabled {
-    border-color: #aaaaaa;
+.Number-input.disabled {
+    border-color: #dddddd;
 }
-.number-input:focus {
+.Number-input:focus {
     outline: none;
     border-color: #42A5F5;
 }
 
-.number-btn {
+.Number-btn {
     font-size: 32;
     border-color: #42A5F5;
     color: #42A5F5;
+    user-select: none;
 }
 
-.number-btn.disabled {
+.Number-btn.disabled {
     border-color: #BBDEFB;
     color: #BBDEFB;
     pointer-events: none;

@@ -1,0 +1,21 @@
+.RoomAllocationItem-root {
+    padding: 4px 8px;
+}
+.RoomAllocationItem-root:not(:last-child) {
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 4px;
+}
+.RoomAllocationItem-title {
+    margin-bottom: 12px;
+}
+.RoomAllocationItem-picker {
+    display: flex;
+    margin-bottom: 8px;
+}
+.RoomAllocationItem-picker-label {
+    flex: 1;
+    font-size: 14px;
+}
+.RoomAllocationItem-picker-label small {
+    color: #666666;
+}
